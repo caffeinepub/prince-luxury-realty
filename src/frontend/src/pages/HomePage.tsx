@@ -2,7 +2,7 @@ import { PropertyCard } from "@/components/PropertyCard";
 import { getFeaturedProperties } from "@/data/mockData";
 import { useFadeIn } from "@/hooks/useFadeIn";
 import { Link } from "@tanstack/react-router";
-import { ChevronDown, Star } from "lucide-react";
+import { ChevronDown, Play, Star } from "lucide-react";
 
 const stats = [
   { value: "50+", label: "Luxury Properties" },
@@ -102,6 +102,25 @@ export function HomePage() {
               className="btn-gold text-xs"
             >
               View Properties
+            </Link>
+            {/* Cinematic Tour CTA */}
+            <Link
+              to="/cinematic"
+              data-ocid="home.cinematic_button"
+              className="flex items-center gap-3 px-6 py-3 border text-xs font-body uppercase tracking-widest transition-all duration-300 hover:bg-white/10"
+              style={{
+                borderColor: "rgba(201,168,76,0.6)",
+                color: "#C9A84C",
+                letterSpacing: "0.15em",
+              }}
+            >
+              <span
+                className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ border: "1px solid #C9A84C" }}
+              >
+                <Play size={12} className="ml-0.5" fill="#C9A84C" />
+              </span>
+              Watch Cinematic Tour
             </Link>
             <Link
               to="/contact"
@@ -208,6 +227,52 @@ export function HomePage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Cinematic tour teaser banner */}
+      <section
+        className="relative py-20 overflow-hidden"
+        style={{ background: "oklch(0.08 0 0)" }}
+      >
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage:
+              "url('/assets/generated/scene5-infinity-pool-sunset.dim_1920x1080.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 text-center px-6">
+          <p className="section-label mb-4">Immersive Experience</p>
+          <h2 className="font-display text-4xl md:text-5xl text-white mb-4">
+            Take a Cinematic Tour
+          </h2>
+          <div className="gold-divider mx-auto mb-6" />
+          <p className="font-body text-white/60 max-w-xl mx-auto mb-10 text-sm leading-relaxed">
+            Experience our finest properties through a curated cinematic
+            journey. Seven breathtaking scenes, crafted to inspire.
+          </p>
+          <Link
+            to="/cinematic"
+            data-ocid="home.cinematic_banner_button"
+            className="inline-flex items-center gap-3 px-8 py-4 border text-xs font-body uppercase tracking-widest transition-all duration-300 hover:bg-gold/10"
+            style={{
+              borderColor: "#C9A84C",
+              color: "#C9A84C",
+              letterSpacing: "0.2em",
+            }}
+          >
+            <span
+              className="w-9 h-9 rounded-full flex items-center justify-center"
+              style={{ border: "1px solid #C9A84C" }}
+            >
+              <Play size={14} className="ml-0.5" fill="#C9A84C" />
+            </span>
+            Begin Cinematic Tour
+          </Link>
         </div>
       </section>
 

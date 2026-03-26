@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Toaster } from "@/components/ui/sonner";
 import { AboutPage } from "@/pages/AboutPage";
+import { CinematicPage } from "@/pages/CinematicPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { GalleryPage } from "@/pages/GalleryPage";
 import { HomePage } from "@/pages/HomePage";
@@ -19,60 +20,85 @@ import {
 
 const queryClient = new QueryClient();
 
+// Root layout — decides whether to show chrome based on route
 function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col bg-background text-foreground">
-        <Navigation />
-        <div className="flex-1">
-          <Outlet />
-        </div>
-        <Footer />
-        <WhatsAppButton />
-        <Toaster />
-      </div>
+      <Toaster />
+      <Outlet />
     </QueryClientProvider>
+  );
+}
+
+// Main layout with nav + footer
+function MainLayout() {
+  return (
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <Navigation />
+      <div className="flex-1">
+        <Outlet />
+      </div>
+      <Footer />
+      <WhatsAppButton />
+    </div>
   );
 }
 
 const rootRoute = createRootRoute({ component: RootLayout });
 
-const indexRoute = createRoute({
+// Pathless layout route for main pages
+const mainLayoutRoute = createRoute({
   getParentRoute: () => rootRoute,
+  id: "main",
+  component: MainLayout,
+});
+
+const indexRoute = createRoute({
+  getParentRoute: () => mainLayoutRoute,
   path: "/",
   component: HomePage,
 });
 
 const propertiesRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => mainLayoutRoute,
   path: "/properties",
   component: PropertiesPage,
 });
 
 const galleryRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => mainLayoutRoute,
   path: "/gallery",
   component: GalleryPage,
 });
 
 const aboutRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => mainLayoutRoute,
   path: "/about",
   component: AboutPage,
 });
 
 const contactRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => mainLayoutRoute,
   path: "/contact",
   component: ContactPage,
 });
 
+// Cinematic route — no nav/footer chrome
+const cinematicRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/cinematic",
+  component: CinematicPage,
+});
+
 const routeTree = rootRoute.addChildren([
-  indexRoute,
-  propertiesRoute,
-  galleryRoute,
-  aboutRoute,
-  contactRoute,
+  mainLayoutRoute.addChildren([
+    indexRoute,
+    propertiesRoute,
+    galleryRoute,
+    aboutRoute,
+    contactRoute,
+  ]),
+  cinematicRoute,
 ]);
 
 const router = createRouter({ routeTree });

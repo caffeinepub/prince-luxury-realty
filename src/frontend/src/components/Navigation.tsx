@@ -59,6 +59,18 @@ export function Navigation() {
             </Link>
           ))}
           <Link
+            to="/cinematic"
+            data-ocid="nav.cinematic_link"
+            className={`font-body text-xs tracking-widest uppercase transition-colors duration-200 flex items-center gap-1.5 ${
+              pathname === "/cinematic"
+                ? "text-gold"
+                : "text-foreground/70 hover:text-gold"
+            }`}
+          >
+            <span style={{ color: "var(--gold)" }}>▶</span>
+            Video Tour
+          </Link>
+          <Link
             to="/contact"
             data-ocid="nav.schedule_button"
             className="btn-gold text-xs"
@@ -105,6 +117,13 @@ export function Navigation() {
               {link.label}
             </Link>
           ))}
+          <Link
+            to="/cinematic"
+            data-ocid="nav.cinematic_link"
+            className="block font-body text-xs tracking-widest uppercase py-3 text-gold hover:text-gold-light transition-colors"
+          >
+            ▶ Video Tour
+          </Link>
           <Link
             to="/contact"
             data-ocid="nav.schedule_button"
